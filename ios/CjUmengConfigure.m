@@ -5,10 +5,16 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(initWithAppkey:(NSString *)appkey channel:(NSString *)channel)
-{
-    // TODO: Implement some actually useful functionality
-    callback(@[[NSString stringWithFormat: @"numberArgument: %@ stringArgument: %@", numberArgument, stringArgument]]);
+RCT_REMAP_METHOD(initWithAppKey,
+                 appKey:(NSString *)appKey
+                 channel:(NSString *)channel
+                 initWithAppKeyWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject){
+#if DEBUG
+    [UMConfigure setLogEnabled:YES];
+#endif
+    [RNUMConfigure initWithAppkey:appKey channel:channel];
+    resolve(nil);
 }
 
 @end
